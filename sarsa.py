@@ -35,19 +35,19 @@ gamma = 0.95
 epsilon = 0.5
 alpha = 0.1
 
-env = gym.make('FrozenLake-v1', desc=["SFFF", "FHFH", "FFFH", "HFFG"], map_name="4x4",  is_slippery=False)
+env = gym.make('FrozenLake-v1', desc=["SFFF", "FHFH", "FFFH", "HFFG"], map_name="4x4",  is_slippery=True)
 Q_array, n_states, n_actions = initialize_env(env)
 
 n_episodes = 10000
 for i in range(n_episodes):
     Q_array, _, _ = sarsa(env, Q_array, alpha, epsilon, gamma, n_actions)
 
-# V = np.max(Q_array, axis = 1).reshape(env.unwrapped.desc.shape)
+V = np.max(Q_array, axis = 1).reshape(env.unwrapped.desc.shape)
 
-# import matplotlib.pyplot as plt
-# import seaborn as sns
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# plt.figure(figsize=(5,5))
-# sns.heatmap(V, annot=True, cmap="viridis", cbar=True)
-# plt.title(f"State Value Function (V), {n_episodes}")
-# plt.show()
+plt.figure(figsize=(5,5))
+sns.heatmap(V, annot=True, cmap="viridis", cbar=True)
+plt.title(f"State Value Function (V), {n_episodes}")
+plt.show()
